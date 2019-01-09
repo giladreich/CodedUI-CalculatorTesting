@@ -30,9 +30,8 @@ namespace CodedUITestCalculator.Tests
             Process.Process.Kill();
         }
 
-
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\Resources\\data.csv", "data#csv",
-             DataAccessMethod.Sequential), DeploymentItem("data.csv")]
+             DataAccessMethod.Sequential), DeploymentItem("Resources\\data.csv")]
         [TestMethod]
         public void TestCalculatorCalculationResult()
         {
@@ -40,18 +39,20 @@ namespace CodedUITestCalculator.Tests
             int num2 = Convert.ToInt32(TestContext.DataRow["Num2"]);
             string operation = TestContext.DataRow["Operation"].ToString();
 
-            Mouse.Click(UIMap.GetButtonByName(num1.ToString()));
-            Mouse.Click(UIMap.GetButtonByName(operation));
-            Mouse.Click(UIMap.GetButtonByName(num2.ToString()));
-            Mouse.Click(UIMap.GetButtonByName("Equals"));
+            Mouse.Click(UICalc.GetButtonByName(num1.ToString()));
+            Mouse.Click(UICalc.GetButtonByName(operation));
+            Mouse.Click(UICalc.GetButtonByName(num2.ToString()));
+            Mouse.Click(UICalc.GetButtonByName("Equals"));
             Playback.Wait(2000);
 
             double expected = CalculatorHelper.DoOperation(num1, num2, operation);
-            double actual = Convert.ToDouble(UIMap.GetTextBoxTextByName("ResultBox"));
+            double actual = Convert.ToDouble(UICalc.GetTextBoxTextByName("ResultBox"));
 
             Assert.AreEqual(expected, actual);
         }
 
+
+        public UICalculatorWindow UICalc => UIMap.UICalculatorWindow;
 
         /// <summary>
         ///Gets or sets the test context which provides

@@ -29,15 +29,13 @@ namespace CodedUITestCalculator.Utils
             for (int i = 1; i < data.Length; i++) // starting iteration from 1 as we are not interested in the columns headers.
             {
                 string[] row = data[i].Split('\t');
-                CalculatorData calcData;
                 try
                 {
                     int num1 = Convert.ToInt32(row[0]);
                     int num2 = Convert.ToInt32(row[1]);
                     char operation = row[2][0];
 
-                    calcData = new CalculatorData(num1, num2, operation);
-                    Data.Add(calcData);
+                    Data.Add(new CalculatorData(num1, num2, operation));
                 }
                 catch
                 {
